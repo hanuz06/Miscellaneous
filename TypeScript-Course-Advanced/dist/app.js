@@ -5,8 +5,8 @@ class Person {
     }
 }
 const max = new Person("Maxim");
-const btn = document.querySelector("#btn");
-btn.addEventListener("click", () => {
-    console.log("Btn clicked!");
-});
+// const btn: Element = document.querySelector("#btn")!;
+// btn.addEventListener("click", () => {
+//   console.log("Btn clicked!");
+// });
 //# sourceMappingURL=app.js.map
