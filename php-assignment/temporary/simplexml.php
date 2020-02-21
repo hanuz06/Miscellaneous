@@ -15,12 +15,14 @@ Array
 ) 
 */ 
 
-$str = "Hello Friend";
+// $str = "Hello Friend";
 
-// $arr1 = str_split($str);
-$arr2 = explode(" ", $str);
+// // $arr1 = str_split($str);
+// $arr2 = explode(" ", $str);
 
-print_r($arr1);
-print_r($arr2);
+// print_r($arr1);
+// print_r($arr2);
+
+echo DATE_ATOM;
 
 ?>

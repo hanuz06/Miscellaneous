@@ -163,9 +163,9 @@ function hideSensitiveInfo($data, $parseFields)
 
         for ($i = 0; $i < count($sensitiveInfo); $i++) {
             // current type of data we are looking to parse
-            $currsensitiveInfo = strtolower($sensitiveInfo[$i]);
+            $currSensitiveInfo = strtolower($sensitiveInfo[$i]);
             // check to see if current parsing field exists on current line
-            if (strpos(strtolower($lines[$currLine]), $currsensitiveInfo) > 0) {
+            if (strpos(strtolower($lines[$currLine]), $currSensitiveInfo) > 0) {
                 // XML format is processed separately
                 if ($isXML === true) {
                     $string_data = $lines[$currLine];
