@@ -1,0 +1,28 @@
+/*
+Theme Name: Andy's theme
+Theme URI: http://www.design.io
+Author: hanuz06
+Author URI: https://www.linkedin.com/in/hanuz06
+Description: This theme was used to learn how to create a WordPress theme
+Version: 1.0 
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: Andy's theme
+Tags: two-columns, left-sidebar, custom-header, custom-menu, custom-logo, blog
+Text Domain: learnwp
+*/
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 25px;
+  height: 0;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+} 
