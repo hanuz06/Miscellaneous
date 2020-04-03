@@ -1,0 +1,142 @@
+docker run nginx : runs nginx container; if missing then it installs from image
+
+docker ps -a : lists (all) containers' information
+
+docker stop silly_sammet : stops container. Provide container's name or id 
+
+docker rm silly_sammet : removes container
+
+docker images : lists images
+
+docker rmi nginx : removes nginx and deletes all dependent containers
+
+docker pull nginx : only pulls nginx without running container
+
+docker exec distracted_mcclintock cat /etc/hosts : to see particular file inside 'distracted_mcclintock' container
+
+docker run -d kodekloud/simple-webapp : runs docker container in detach mode(background mode)
+
+docker attach a043d : attach docker container
+
+docker inspect mysql : show full container info in json format
+
+docker run -e APP_COLOR=blue  simple-webapp-color : set environment variable 
+
+docker run -e  APP_COLOR=blue -p 38282:8080 --name blue-app kodekloud/simple-webapp : Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080.
+
+docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db mysql : Deploy a mysql database using the mysql image and name it mysql-db. Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
+
+docker build -t webapp-color . : Build a docker image using the Dockerfile and name it webapp-color. No tag to be specified.
+
+<=======================================================>  
+
+docker run -p 8282:8080 webapp-color
+ This is a sample web application that displays a colored background.
+ A color can be specified in two ways.
+
+ 1. As a command line argument with --color as the argument. Accepts one of red,green,blue,blue2,pink,darkblue
+ 2. As an Environment variable APP_COLOR. Accepts one of red,green,blue,blue2,pink,darkblue
+ 3. If none of the above then a random color is picked from the above list.
+ Note: Command line argument precedes over environment variable.
+
+
+No command line argument or environment variable. Picking a Random Color =blue
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+172.17.0.4 - - [02/Apr/2020 22:04:13] code 400, message Bad request syntax ('\x16\x03\x01\x00Ç\x01\x00\x00Ã\x03\x03N^fltd\x0cØÓ5]¯Fº´þ\x93§Xó\x97v¡N¸HÔþöïÃ" S;0·¬ç*\x95/ùêQ7Lw C¾ëÂ\x80(«|\x8di\x0cáèQHu\x00 À/À0À+À,Ì¨Ì©À\x13À\tÀ\x14À')
+172.17.0.4 - - [02/Apr/2020 22:04:13] "ÇÃN^fltd
+                                               ØÓ5]¯Fº´þ§Xóv¡N¸HÔþöïÃ" S;0·¬ç*/ùêQ7Lw C¾ëÂ(«|i
+                                                                                              áèQHu À/À0À+À,Ì¨Ì©ÀÀ      ÀÀ" HTTPStatus.BAD_REQUEST -
+172.17.0.4 - - [02/Apr/2020 22:04:13] "GET / HTTP/1.1" 200 -
+172.17.0.4 - - [02/Apr/2020 22:04:14] code 400, message Bad request syntax ('\x16\x03\x01\x00Ç\x01\x00\x00Ã\x03\x03ÝiAÎ¤\xadjÚµíRGVs\x02\x89\x1b\x96_a7NA¢Ò´u\x8ee\x05-= }¼ËJóÏrÉ\t*Ê\x9c\x1a\x02ªm£î,þ\x17|\x1eßeÜxqðz?0\x00 À/À0À+À,Ì¨Ì©À\x13À\tÀ\x14À')
+172.17.0.4 - - [02/Apr/2020 22:04:14] "ÇÃÝiAÎ¤­jÚµíRGVs_a7NA¢Ò´ue-= }¼ËJóÏrÉ    *Êªm£î,þ|ßeÜxqðz?0 À/À0À+À,Ì¨Ì©ÀÀ       ÀÀ" HTTPStatus.BAD_REQUEST -
+172.17.0.4 - - [02/Apr/2020 22:04:14] "GET /favicon.ico HTTP/1.1" 404 -
+172.17.0.4 - - [02/Apr/2020 22:04:53] code 400, message Bad request syntax ('\x16\x03\x01\x00Ç\x01\x00\x00Ã\x03\x038+\x9ba\x03~/û^½×b"\x12Y_\\_,¤\x83wRú#c¸\x01[\x88¾ò W>\x1dÏüz[\x95i\x9c;Âà¾Ó+u&L£&îc+³ÇÃwËä\x9a/\x00 À/À0À+À,Ì¨Ì©À\x13À\tÀ\x14À')
+172.17.0.4 - - [02/Apr/2020 22:04:53] "ÇÃ8+a~/û^½×b"Y_\_,¤wRú#c¸[¾ò W>Ïüz[i;Âà¾Ó+u&L£&îc+³ÇÃwËä/ À/À0À+À,Ì¨Ì©ÀÀ ÀÀ" HTTPStatus.BAD_REQUEST -
+172.17.0.4 - - [02/Apr/2020 22:04:53] "GET / HTTP/1.1" 200 -
+
+<=======================================================>
+
+docker run python:3.6 cat /etc/*release* : What is the base Operating System used by the python:3.6 image?
+
+vi /root/webapp-color/Dockerfile : open dockerfile with vim
+
+grep -i FROM /root/webapp-color/Dockerfile : get from 'FROM' information
+
+===========================================================
+docker build -t ubuntu-sleeper .
+docker run ubuntu-sleeper 10 : if CMD is 'sleeper 5' in Dockerfile, then 10 will override sleeper time set in Dockerfile
+
+docker run --entrypoint sleep2.0 ubuntu-sleeper 10 : to modify entrypoint during runtime
+===========================================================
+
+docker network create \
+  --driver bridge \
+  --subnet 182.18.0.0/16
+  custom-isolated-network
+
+docker run --name alpine-2 --network=none alpine : Run a container named alpine-2 using the alpine image and attach it to the none network.
+
+docker network create --driver bridge --subnet 182.18.0.1/24 --gateway 182.18.0.1 wp-mysql-network : Create a new network named wp-mysql-network using the bridge driver. Allocate subnet 182.18.0.1/24. Configure Gateway 182.18.0.1
+
+==========================================================
+
+docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db --network wp-mysql-network mysql : Deploy a mysql database using the mysql image and name it mysql-db. Attach it to the newly created network wp-mysql-network. Set the database password to use db_pass123. The environment variable to set is MYSQL_ROOT_PASSWORD
+
+docker run -e DB_Host=mysql-db -e DB_Password=db_pass123 --name webapp --network wp-mysql-network -p 38080:8080 -d --link mysql-db:mysql-db kodekloud/simple-webapp-mysql :
+"Deploy a web application named webapp, using image kodekloud/simple-webapp-mysql. Expose port to 38080 on the host. The application takes an environment variable DB_Host that has the hostname of the mysql database. Make sure to attach it to the newly created network wp-mysql-network"
+
+==========================================================
+
+docker volume create data_volume : creates a storage
+docker run -v data_volume:/var/lib/mysql mysql : mounts data base folder to data_volume to store data in order not to lose data after destroying container. Volume mounting( mounts to /var/lib/docker/volumes/)
+docker run -v /data/mysql:/var/lib/mysql mysql : bind mounting(mounts from any location on Docker host).
+
+docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql : '--mount is preferable to -v'
+
+docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql : "Run a mysql container again, but this time map a volume to the container so that the data stored by the container is stored at /opt/data on the host.
+Use the same name : mysql-db and same password: db_pass123 as before. Mysql stores data at /var/lib/mysql inside the container."
+
+===============================================================
+
+docker run -d --name db -e POSTGRES_PASSWORD=mysecretpassword postgres : "First create a postgress database container called db, image postgres, environmental variable POSTGRES_PASSWORD=mysecretpassword"
+
+docker run -d --name wordpress --link db:db -p 8085:8080 wordpress : "Next let's create a simple wordpress container called wordpress, image: wordpress, link it to the container db and expose it on host port 8085"
+
+===============================================================
+
+db:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=mysecretpassword  
+wordpress:
+  image: wordpress
+  ports:
+    - 8085:80 
+  links:
+    - db:db
+
+"Create a docker-compose.yml file under the path /root/wordpress. Once done, run a docker-compose up.
+The compose file should have exact specification of the wordpress and db container"
+
+===============================================================
+
+Deploy Private Registry 
+
+docker run -d -p 5000:5000 --name registry registry:2
+
+docker image tag my-image localhost:5000/my-image
+
+docker push localhost:5000/my-image 
+
+docker pull localhost:5000/my-image 
+
+docker pull 192.168.56.100:5000/my-image 
+
+===============================================================
+
+
