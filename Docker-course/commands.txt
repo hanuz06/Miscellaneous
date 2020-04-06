@@ -139,4 +139,61 @@ docker pull 192.168.56.100:5000/my-image
 
 ===============================================================
 
+Container orchestration
 
+docker service create --replicas=100 nodejs
+
+===============================================================
+
+FROM node:10-alpine
+
+RUN mkdir -p /src/app
+
+WORKDIR /src/app
+
+COPY package.json /src/app/package.json
+
+RUN npm install
+
+COPY . /src/app
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
+
+
+
+The command to build the image is: docker build -t my-nodejs-app .
+
+The command to launch the built image : docker run -d --name my-running-app -p 3000:3000 my-nodejs-app
+
+Testing Container
+You can test the container is accessible using curl. If the application responds then you know that everything has correctly started.
+
+curl http://docker:3000
+
+docker run -d --name my-production-running-app -e NODE_ENV=production -p 3000:3000 my-nodejs-app
+
+===============================================================
+
+You can output all the environment variables with the env command. For example:
+
+docker run --link redis-server:redis alpine env
+
+Secondly, Docker will update the HOSTS file of the container with an entry for our source container with three names, the original, the alias and the hash-id. You can output the containers host entry using cat /etc/hosts
+
+docker run --link redis-server:redis alpine cat /etc/hosts
+
+Example
+With a link created you can ping the source container in the same way as if it were a server running in your network.
+
+docker run --link redis-server:redis alpine ping -c 1 redis
+
+The command below will launch an instance of the Redis-cli tool and connect to the redis server via its alias.
+
+docker run -it --link redis-server:redis redis redis-cli -h redis
+
+Issuing Commands
+The command KEYS * will output the contents stored currently in the source redis container.
+
+===============================================================

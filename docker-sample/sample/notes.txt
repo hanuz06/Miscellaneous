@@ -1,0 +1,51 @@
+hanuz06@hanuz06:~/Desktop/Lighthouse-Prep-Course/docker-sample/sample$ docker-compose up -d --build
+Creating network "sample_default" with the default driver
+Building sample
+Step 1/7 : FROM node:12.2.0-alpine
+12.2.0-alpine: Pulling from library/node
+e7c96db7181b: Pull complete
+a9b145f64bbe: Pull complete
+3bcb5e14be53: Pull complete
+Digest: sha256:2ab3d9a1bac67c9b4202b774664adaa94d2f1e426d8d28e07bf8979df61c8694
+Status: Downloaded newer image for node:12.2.0-alpine
+ ---> f391dabf9dce
+Step 2/7 : WORKDIR /app
+ ---> Running in d23a07e57977
+Removing intermediate container d23a07e57977
+ ---> ae65393c1ca6
+Step 3/7 : ENV PATH /app/node_modules/.bin:$PATH
+ ---> Running in 7fdcb08f5bc6
+Removing intermediate container 7fdcb08f5bc6
+ ---> 16ec3ca56648
+Step 4/7 : COPY package.json /app/package.json
+ ---> 8f2e905a3756
+Step 5/7 : RUN npm install --silent
+ ---> Running in 964049e76896
+added 1626 packages from 786 contributors and audited 931351 packages in 52.7s
+found 0 vulnerabilities
+
+Removing intermediate container 964049e76896
+ ---> 8aacd3803de5
+Step 6/7 : RUN npm install react-scripts@3.4.1 -g --silent
+ ---> Running in f427cff248d3
+/usr/local/bin/react-scripts -> /usr/local/lib/node_modules/react-scripts/bin/react-scripts.js
++ react-scripts@3.4.1
+added 1600 packages from 750 contributors in 139.871s
+Removing intermediate container f427cff248d3
+ ---> 771b02da151d
+Step 7/7 : CMD ["npm", "start"]
+ ---> Running in dc4ba0d687ee
+Removing intermediate container dc4ba0d687ee
+ ---> fa08497a32a1
+
+Successfully built fa08497a32a1
+Successfully tagged sample_sample:latest
+Creating sample ... done
+hanuz06@hanuz06:~/Desktop/Lighthouse-Prep-Course/docker-sample/sample$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+sample_sample       latest              fa08497a32a1        25 minutes ago      452MB
+node                12.2.0-alpine       f391dabf9dce        10 months ago       77.7MB
+hanuz06@hanuz06:~/Desktop/Lighthouse-Prep-Course/docker-sample/sample$ 
+
+sudo chown hanuz06:hanuz06 /home/hanuz06/.docker -R
+sudo chmod g+rwx "/home/hanuz06/.docker" -R
