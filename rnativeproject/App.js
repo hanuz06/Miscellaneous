@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   View,
+  ScrollView,
   FlatList,
   Alert,
   TouchableWithoutFeedback,
@@ -28,7 +29,7 @@ export default function App() {
   const submitHandler = text => {
     if (text.length > 3) {
       setTodos(prevTodos => {
-        return [{ text: text, key: Math.random().toString() }, ...prevTodos];
+        return [{ text: text, key: Date.now().toString() }, ...prevTodos];
       });
     } else {
       Alert.alert("Oop!", "Todos must be over 3 chars long", [
@@ -52,14 +53,14 @@ export default function App() {
         <Header />
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
-          <View style={styles.list}>
+          <ScrollView style={styles.list}>
             <FlatList
               data={todos}
               renderItem={({ item }) => (
                 <TodoItem item={item} pressHandler={pressHandler} />
               )}
             />
-          </View>
+          </ScrollView>
         </View>
       </View>
     </TouchableWithoutFeedback>
