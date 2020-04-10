@@ -1,0 +1,8 @@
+Styles are applied to View component itself, and not to View component's children; styles applied to Text component also applied to Text component's children;
+Text component doesn't use Flexbox;
+For images with uri we must put width and height as RN can't figure out the image size from internet; for local images usually it is not necessary provided images are perfectly sized;
+Text automatically wraps. To disable text wrapping use numberOfLines and ellipsizeMode props;
+
+nfn - arrow fn
+rnfs -  new component 
+rns - react native stylesheet
