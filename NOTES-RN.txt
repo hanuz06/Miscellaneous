@@ -6,3 +6,5 @@ Text automatically wraps. To disable text wrapping use numberOfLines and ellipsi
 nfn - arrow fn
 rnfs -  new component 
 rns - react native stylesheet
+
+Ref has 'current' property and won't change with re-rendering
