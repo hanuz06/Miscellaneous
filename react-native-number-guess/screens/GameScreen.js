@@ -6,8 +6,10 @@ import {
   Alert,
   ScrollView,
   FlatList,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+// import { ScreenOrientation } from "expo-screen-orientation";
 
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
@@ -30,18 +32,37 @@ const renderListItem = (listLength, itemData) => (
   <View style={styles.listItem}>
     <BodyText>#{listLength - itemData.index}</BodyText>
     <BodyText>{itemData.item}</BodyText>
-  </View>
+  </View> 
 );
 
 const GameScreen = ({ userChoice, onGameOver }) => {
+  // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+
   const initialGuess = generateRandomBetween(1, 100, userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess.toString());
-  // const [rounds, setRounds] = useState(0);
   const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
+  const [avalableDeviceWidth, setAvalableDeviceWidth] = useState(
+    Dimensions.get("window").width
+  );
+  const [avalableDeviceHeight, setAvalableDeviceHeight] = useState(
+    Dimensions.get("window").height
+  );
 
   // Ref has 'current' property and won't change with re-rendering
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setAvalableDeviceWidth(Dimensions.get("window").width);
+      setAvalableDeviceHeight(Dimensions.get("window").height);
+    };
+
+    Dimensions.addEventListener("change", updateLayout);
+    return () => {
+      Dimensions.removeEventListener("change", updateLayout);
+    };
+  });
 
   useEffect(() => {
     if (currentGuess === userChoice) {
@@ -82,6 +103,42 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     ]);
   };
 
+  let listContainerStyle = styles.listContainer;
+
+  if (avalableDeviceWidth < 350) {
+    listContainerStyle = styles.listContainerBig;
+  }
+
+  if (avalableDeviceHeight < 500) {
+    return (
+      <View style={styles.screen}>
+        <Text style={DefaultStyles.title}>Opponent's Guess</Text>
+        <View style={styles.controls}>
+          <MainButton onPress={nextGuessHandler.bind(this, "lower")}>
+            <Ionicons name="md-remove" size={24} color="white" />
+          </MainButton>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <MainButton onPress={nextGuessHandler.bind(this, "greater")}>
+            <Ionicons name="md-add" size={24} color="white" />
+          </MainButton>
+        </View>
+        <View style={listContainerStyle}>
+          {/* <ScrollView contentContainerStyle={styles.list}>
+          {pastGuesses.map((guess, index) =>
+            renderListItem(guess, pastGuesses.length - index)
+          )}
+        </ScrollView> */}
+          <FlatList
+            keyExtractor={(item) => item}
+            data={pastGuesses}
+            renderItem={renderListItem.bind(this, pastGuesses.length)}
+            contentContainerStyle={styles.list}
+          />
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={DefaultStyles.title}>Opponent's Guess</Text>
@@ -94,7 +151,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
           <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
-      <View style={styles.listContainer}>
+      <View style={listContainerStyle}>
         {/* <ScrollView contentContainerStyle={styles.list}>
           {pastGuesses.map((guess, index) =>
             renderListItem(guess, pastGuesses.length - index)
@@ -120,8 +177,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
-    width: 450,
+    marginTop: Dimensions.get("window").height > 600 ? 20 : 5,
+    width: 400,
     maxWidth: "90%",
   },
   listItem: {
@@ -134,8 +191,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
   },
+  controls: {
+    flexDirection: "row",
+    width: "80%",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
   listContainer: {
     width: "60%",
+    flex: 1,
+  },
+  listContainerBig: {
+    width: "80%",
     flex: 1,
   },
   list: {

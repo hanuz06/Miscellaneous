@@ -41,7 +41,7 @@
 // console.log(withCount("Hello TypeScript"));
 // console.log(withCount(["I", "am", "array"]));
 // console.log(withCount({ length: 25 }));
-// // console.log(withCount(20));
+// console.log(withCount(20));
 
 // ======================
 // function getObjectValue<T extends object, R extends keyof T>(obj: T, key: R) {
@@ -59,7 +59,7 @@
 
 // ======================
 
-// class Collection<T extends number | string | boolean> {
+// class Collection<T extends number | string | object> {
 //   constructor(private _items: T[] = []) {}
 
 //   add(item: T) {
@@ -96,31 +96,35 @@ interface ICar {
   year: number;
 }
 
-function createAndValidateCar(model: string, year: number): ICar {
-  const car: Partial<ICar> = {};
+// function createAndValidateCar<M extends string, Y extends number>(
+//   model: M,
+//   year: Y
+// ): ICar {
+//   const car: Partial<ICar> = {};
 
-  if (model.length > 3) {
-    car.model = model;
-  }
+//   if (model.length > 3) {
+//     car.model = model;
+//   }
 
-  if (year > 2000) {
-    car.year = year;
-  }
+//   if (year > 2000) {
+//     car.year = year;
+//   }
 
-  return car as ICar;
-}
+//   return car as ICar;
+// }
+
+// createAndValidateCar("audi", 2020);
 //=========================================
 
-const cars: Readonly<Array<string>> = ["Ford", "Audi"];
-// cars.shift();
-// cars[1]
+// const cars: Readonly<Array<string>> = ["Ford", "Audi"];
+// // cars.shift();
+// // cars[1]
 
-const ford: Readonly<ICar> = {
-  model: "Ford",
-  year: 2020
-};
+// const ford: Readonly<ICar> = {
+//   model: "Ford",
+//   year: 2020
+// };
 
 // ford.model = 'Ferrari';
 
 //=========================================
-

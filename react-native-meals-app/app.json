@@ -1,14 +1,16 @@
 {
   "expo": {
-    "name": "react-native-number-guess",
-    "slug": "react-native-number-guess",
+    "name": "react-native-meals-app",
+    "slug": "rn-complete-guide",
+    "privacy": "public",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

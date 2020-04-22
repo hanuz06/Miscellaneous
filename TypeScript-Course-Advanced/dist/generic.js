@@ -12,13 +12,13 @@ function createAndValidateCar(model, year) {
     return car;
 }
 //=========================================
-const cars = ["Ford", "Audi"];
-// cars.shift();
-// cars[1]
-const ford = {
-    model: "Ford",
-    year: 2020
-};
+// const cars: Readonly<Array<string>> = ["Ford", "Audi"];
+// // cars.shift();
+// // cars[1]
+// const ford: Readonly<ICar> = {
+//   model: "Ford",
+//   year: 2020
+// };
 // ford.model = 'Ferrari';
 //=========================================
 //# sourceMappingURL=generic.js.map
