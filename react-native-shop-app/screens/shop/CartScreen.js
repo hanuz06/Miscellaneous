@@ -6,6 +6,7 @@ import CartItem from "../../components/shop/CartItem";
 
 import * as cartActions from "../../store/actions/cartActions";
 import * as orderActions from "../../store/actions/orderActions";
+import Card from "../../components/UI/Card";
 
 const CartScreen = () => {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
@@ -27,11 +28,11 @@ const CartScreen = () => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.summaryText}>
           Total:{" "}
           <Text style={styles.amount}>
-            ${Math.round(cartTotalAmount.toFixed(2)*100)/100}
+            ${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}
           </Text>
         </Text>
         <Button
@@ -42,7 +43,7 @@ const CartScreen = () => {
             dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
           }}
         />
-      </View>
+      </Card>
       <FlatList
         data={cartItems}
         keyExtractor={(item) => item.productId}
@@ -79,13 +80,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
     padding: 10,
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5, // shadow works only for IOS; add elevation to make shadow work on android too
-    borderRadius: 10,
-    backgroundColor: "white",
   },
   summaryText: {
     fontFamily: "open-sans-bold",
