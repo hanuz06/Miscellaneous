@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
@@ -12,6 +12,7 @@ import ProductDetailScreen from "../screens/shop/ProductDetailScreen.js";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import { Ionicons } from "@expo/vector-icons";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
 
 const defaultNavOptions = {
   headerStyle: {
@@ -33,7 +34,8 @@ const ProductsNavigator = createStackNavigator(
     Cart: CartScreen,
   },
   {
-    navigationOptions: { // applied only if it is a screen of another navigator
+    navigationOptions: {
+      // applied only if it is a screen of another navigator
       drawerIcon: (drawerConfig) => (
         <Ionicons
           name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
@@ -65,10 +67,30 @@ const OrdersNavigator = createStackNavigator(
   }
 );
 
+const AdminNavigator = createStackNavigator(
+  {
+    UserProducts: UserProductsScreen,
+  },
+  {
+    navigationOptions: {
+      // applied only if it is a screen of another navigator
+      drawerIcon: (drawerConfig) => (
+        <Ionicons
+          name={Platform.OS === "android" ? "md-create" : "ios-create"}
+          size={23}
+          color={drawerConfig.tintColor}
+        />
+      ),
+    },
+    defaultNavigationOptions: defaultNavOptions,
+  }
+);
+
 const ShopNavigator = createDrawerNavigator(
   {
     Products: ProductsNavigator,
     Orders: OrdersNavigator,
+    Admin: AdminNavigator,
   },
   {
     contentOptions: {

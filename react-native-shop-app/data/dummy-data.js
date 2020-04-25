@@ -1,54 +1,54 @@
-import Product from '../models/product';
+import Product from "../models/product";
 
 const PRODUCTS = [
   new Product(
-    'p1',
-    'u1',
-    'Red Shirt',
-    'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-    'A red t-shirt, perfect for days with non-red weather.',
-    29.99
+    "p1",
+    "u1",
+    "Blue Shirt",
+    "https://images.pexels.com/photos/1656684/pexels-photo-1656684.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "A blue t-shirt, perfect for days with non-red weather.",
+    39.99
   ),
   new Product(
-    'p2',
-    'u1',
-    'Blue Carpet',
-    'https://images.pexels.com/photos/6292/blue-pattern-texture-macro.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    'Fits your red shirt perfectly. To stand on. Not to wear it.',
-    99.99
+    "p2",
+    "u1",
+    "Turkmen Carpet",
+    "https://images.pexels.com/photos/4049730/pexels-photo-4049730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "Easy-to-clean, stain resistant, and does not shed.",
+    59.99
   ),
   new Product(
-    'p3',
-    'u2',
-    'Coffee Mug',
-    'https://images.pexels.com/photos/160834/coffee-cup-and-saucer-black-coffee-loose-coffee-beans-160834.jpeg?cs=srgb&dl=bean-beans-black-coffee-160834.jpg&fm=jpg',
-    'Can also be used for tea!',
+    "p3",
+    "u2",
+    "Coffee Mug",
+    "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "Can also be used for tea!",
     8.99
   ),
   new Product(
-    'p4',
-    'u3',
-    'The Book - Limited Edition',
-    'https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?cs=srgb&dl=blur-blurred-book-pages-46274.jpg&fm=jpg',
-    "What the content is? Why would that matter? It's a limited edition!",
-    15.99
+    "p4",
+    "u3",
+    "The Watch - Limited Edition",
+    "https://images.pexels.com/photos/1120275/pexels-photo-1120275.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "Tried and True.",
+    105.99
   ),
   new Product(
-    'p5',
-    'u3',
-    'PowerBook',
-    'https://get.pxhere.com/photo/laptop-computer-macbook-mac-screen-water-board-keyboard-technology-air-mouse-photo-airport-aircraft-tablet-aviation-office-black-monitor-keys-graphic-hardware-image-pc-exhibition-multimedia-calculator-vector-water-cooling-floppy-disk-phased-out-desktop-computer-netbook-personal-computer-computer-monitor-electronic-device-computer-hardware-display-device-448748.jpg',
-    'Awesome hardware, crappy keyboard and a hefty price. Buy now before a new one is released!',
-    2299.99
+    "p5",
+    "u3",
+    "PowerBook",
+    "https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "Awesome hardware, crappy keyboard and a hefty price. Buy now before a new one is released!",
+    2599.99
   ),
   new Product(
-    'p6',
-    'u1',
-    'Pen & Paper',
-    'https://cdn.pixabay.com/photo/2015/10/03/02/14/pen-969298_1280.jpg',
-    "Can be used for role-playing (not the kind of role-playing you're thinking about...).",
-    5.49
-  )
+    "p6",
+    "u1",
+    "N5 CHANNEL",
+    "https://images.pexels.com/photos/755992/pexels-photo-755992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "The essence of a free and captivating woman. A woody and ambery oriental with a full-bodied character: sensual, deep and addictive.",
+    184.99
+  ),
 ];
 
 export default PRODUCTS;
