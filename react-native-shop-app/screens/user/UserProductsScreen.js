@@ -8,9 +8,13 @@ import ProductItem from "../../components/shop/ProductItem";
 import Colors from "../../constants/Colors";
 import * as productsActions from "../../store/actions/productsActions";
 
-const UserProductsScreen = () => {
+const UserProductsScreen = (props) => {
   const userProducts = useSelector((state) => state.products.userProducts);
   const dispatch = useDispatch();
+
+  const editProductHandler = (id) => {
+    props.navigation.navigate("EditProduct", { productId: id });
+  };
 
   return (
     <FlatList
@@ -21,13 +25,15 @@ const UserProductsScreen = () => {
           title={itemData.item.title}
           price={itemData.item.price}
           image={itemData.item.imageUrl}
-          onSelect={() => {}}
+          onSelect={() => {
+            editProductHandler(itemData.item.id);
+          }}
         >
           <Button
             color={Colors.primary}
             title="Edit"
             onPress={() => {
-              selectItemHandler(itemData.item.id, itemData.item.title);
+              editProductHandler(itemData.item.id);
             }}
           />
           <Button
@@ -45,14 +51,25 @@ const UserProductsScreen = () => {
 
 UserProductsScreen.navigationOptions = (navData) => {
   return {
-    headerTitle: "Your products / Admin section",
+    headerTitle: "Your products / Admin",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
+        <Item 
           title="Menu"
           iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
           onPress={() => {
             navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Add"
+          iconName={Platform.OS === "android" ? "md-create" : "ios-create"}
+          onPress={() => {
+            navData.navigation.navigate("EditProduct");
           }}
         />
       </HeaderButtons>
