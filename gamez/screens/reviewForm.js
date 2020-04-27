@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Button, TextInput, View, Text } from "react-native";
+import { TextInput, View, Text } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -46,7 +46,8 @@ export default function ReviewForm({ addReview }) {
               {formikProps.touched.title && formikProps.errors.title}
             </Text>
             <TextInput
-              multiline minHeight={60}
+              multiline 
+              minHeight={60}
               style={globalStyles.input}
               placeholder="Review body"
               onChangeText={formikProps.handleChange("body")}
@@ -73,7 +74,7 @@ export default function ReviewForm({ addReview }) {
             />
           </View>
         )}
-      </Formik>
+      </Formik>>
     </View>
   );
 }

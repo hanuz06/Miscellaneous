@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import { composeWithDevTools } from "redux-devtools-extension";
+import ReduxThunk from "redux-thunk"; // allow to make async request to Firebase
 
 import productsReducer from "./store/reducers/productsReducer";
 import cartReducer from "./store/reducers/cartReducer";
@@ -16,7 +17,11 @@ const rootReducer = combineReducers({
   orders: orderReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(
+  rootReducer,
+  applyMiddleware(ReduxThunk),
+  composeWithDevTools()
+);
 
 const fetchFonts = () => {
   return Font.loadAsync({

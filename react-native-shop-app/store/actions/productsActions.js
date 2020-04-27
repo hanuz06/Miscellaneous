@@ -1,18 +1,74 @@
-import { DELETE_PRODUCT, CREATE_PRODUCT, UPDATE_PRODUCT } from "../../types";
+import {
+  DELETE_PRODUCT,
+  CREATE_PRODUCT,
+  UPDATE_PRODUCT,
+  SET_PRODUCTS,
+} from "../../types";
+import Product from "../../models/product";
+
+export const fetchProduct = () => {
+  return async (dispatch) => {
+    const res = await fetch(
+      "https://react-native-shop-app-9b2b1.firebaseio.com/products.json"
+    );
+
+    const resData = await res.json();
+
+    const fetchedProducts = [];
+
+    for (const key in resData) {
+      fetchedProducts.push(
+        new Product(
+          key,
+          "u1",
+          resData[key].title,
+          resData[key].imageUrl,
+          resData[key].description,
+          resData[key].price,
+        )
+      );
+    }
+
+    dispatch({ type: SET_PRODUCTS, products: fetchedProducts });
+  };
+};
 
 export const deleteProduct = (productId) => {
   return { type: DELETE_PRODUCT, productId: productId };
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
-  return {
-    type: CREATE_PRODUCT,
-    productData: {
-      title,
-      description,
-      imageUrl,
-      price,
-    },
+  // allow execute any async code thanks to redux-thunk
+  return async (dispatch) => {
+    const res = await fetch(
+      "https://react-native-shop-app-9b2b1.firebaseio.com/products.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          imageUrl,
+          price,
+        }),
+      }
+    );
+
+    const resData = await res.json();
+
+    // dispatch to redux adding id from the fetch operation
+    dispatch({
+      type: CREATE_PRODUCT,
+      productData: {
+        id: resData.name,
+        title,
+        description,
+        imageUrl,
+        price,
+      },
+    });
   };
 };
 

@@ -4,6 +4,7 @@ export const ADD_ORDER = "ADD_ORDER";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const SET_PRODUCTS = "SET_PRODUCTS";
 export const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 export const INPUT_CHANGE = "INPUT_CHANGE";
 export const INPUT_FOCUS = "INPUT_FOCUS";
