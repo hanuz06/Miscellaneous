@@ -6,30 +6,39 @@ import {
 } from "../../types";
 import Product from "../../models/product";
 
-export const fetchProduct = () => {
+export const fetchProducts = () => {
   return async (dispatch) => {
-    const res = await fetch(
-      "https://react-native-shop-app-9b2b1.firebaseio.com/products.json"
-    );
-
-    const resData = await res.json();
-
-    const fetchedProducts = [];
-
-    for (const key in resData) {
-      fetchedProducts.push(
-        new Product(
-          key,
-          "u1",
-          resData[key].title,
-          resData[key].imageUrl,
-          resData[key].description,
-          resData[key].price,
-        )
+    try {
+      const res = await fetch(
+        "https://react-native-shop-app-9b2b1.firebaseio.com/products.json"
       );
-    }
+      
+      if (!res.ok) {
+        throw new Error("Something is wrong!");
+      }
 
-    dispatch({ type: SET_PRODUCTS, products: fetchedProducts });
+      const resData = await res.json();
+
+      const fetchedProducts = [];
+
+      for (const key in resData) {
+        fetchedProducts.push(
+          new Product(
+            key,
+            "u1",
+            resData[key].title,
+            resData[key].imageUrl,
+            resData[key].description,
+            resData[key].price
+          )
+        );
+      }
+
+      dispatch({ type: SET_PRODUCTS, products: fetchedProducts });
+    } catch (err) {
+      // send to custom analytics server
+      throw err;
+    }
   };
 };
 
