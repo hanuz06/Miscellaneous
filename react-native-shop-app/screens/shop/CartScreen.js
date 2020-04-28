@@ -1,5 +1,12 @@
-import React from "react";
-import { StyleSheet, Text, View, FlatList, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import Colors from "../../constants/Colors";
 import CartItem from "../../components/shop/CartItem";
@@ -9,6 +16,7 @@ import * as orderActions from "../../store/actions/orderActions";
 import Card from "../../components/UI/Card";
 
 const CartScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   // return array for easier usage
   const cartItems = useSelector((state) => {
@@ -26,6 +34,20 @@ const CartScreen = () => {
   });
   const dispatch = useDispatch();
 
+  const addOrderHandler = async () => {
+    setIsLoading(true);
+    await dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color={Colors.accent} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <Card style={styles.summary}>
@@ -35,14 +57,16 @@ const CartScreen = () => {
             ${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}
           </Text>
         </Text>
-        <Button
-          color={Colors.primary}
-          title="Order Now"
-          disabled={cartItems.length === 0}
-          onPress={() => {
-            dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
-          }}
-        />
+        {isLoading ? (
+          <ActivityIndicator size="small" color={Colors.accent} />
+        ) : (
+          <Button
+            color={Colors.primary}
+            title="Order Now"
+            disabled={cartItems.length === 0}
+            onPress={addOrderHandler}
+          />
+        )}
       </Card>
       <FlatList
         data={cartItems}

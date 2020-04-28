@@ -12,7 +12,7 @@ export const fetchProducts = () => {
       const res = await fetch(
         "https://react-native-shop-app-9b2b1.firebaseio.com/products.json"
       );
-      
+
       if (!res.ok) {
         throw new Error("Something is wrong!");
       }
@@ -43,7 +43,20 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = (productId) => {
-  return { type: DELETE_PRODUCT, productId: productId };
+  return async (dispatch) => {
+    const res = await fetch(
+      `https://react-native-shop-app-9b2b1.firebaseio.com/products/${productId}.json`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to update. Something web wrong!");
+    }
+
+    dispatch({ type: DELETE_PRODUCT, productId: productId });
+  };
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
@@ -82,13 +95,34 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (id, title, description, imageUrl) => {
-  return {
-    type: UPDATE_PRODUCT,
-    productId: id,
-    productData: {
-      title,
-      description,
-      imageUrl,
-    },
+  return async (dispatch) => {
+    const res = await fetch(
+      `https://react-native-shop-app-9b2b1.firebaseio.com/products/${id}.json`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          imageUrl,
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to update. Something web wrong!");
+    }
+
+    dispatch({
+      type: UPDATE_PRODUCT,
+      productId: id,
+      productData: {
+        title,
+        description,
+        imageUrl,
+      },
+    });
   };
 };
