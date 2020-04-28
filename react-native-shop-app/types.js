@@ -9,3 +9,5 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 export const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 export const INPUT_CHANGE = "INPUT_CHANGE";
 export const INPUT_FOCUS = "INPUT_FOCUS";
+export const SIGNUP = "SIGNUP";
+export const LOGIN = "LOGIN";
