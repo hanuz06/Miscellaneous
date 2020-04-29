@@ -17,7 +17,7 @@ const StartupScreen = (props) => {
   useEffect(() => {
     const tryLogin = async () => {
       // get login data from local storatge;
-      const userData = await AsyncStorage.getItem("userData");
+      const userData = await AsyncStorage.getItem("userData"); 
 
       if (!userData) {
         props.navigation.navigate("Auth");
@@ -31,8 +31,11 @@ const StartupScreen = (props) => {
         props.navigation.navigate("Auth");
         return;
       }
+
+      const expirationTime = expirationDate.getTime() - new Date().getTime();
+
       props.navigation.navigate("Shop");
-      dispatch(authActions.authenticate(userId, token));
+      dispatch(authActions.authenticate(userId, token, expirationTime));
     };
     tryLogin();
   }, [dispatch]);

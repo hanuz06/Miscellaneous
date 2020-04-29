@@ -12,3 +12,4 @@ export const INPUT_FOCUS = "INPUT_FOCUS";
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
 export const AUTHENTICATE = "AUTHENTICATE";
+export const LOGOUT = "LOGOUT";
