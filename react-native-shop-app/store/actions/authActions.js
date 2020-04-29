@@ -1,4 +1,13 @@
-import { SIGNUP, LOGIN } from "../../types";
+import { SIGNUP, LOGIN, AUTHENTICATE } from "../../types";
+import { AsyncStorage } from "react-native";
+
+export const authenticate = (userId, token) => {
+  return {
+    type: AUTHENTICATE,
+    userId: userId,
+    token: token,
+  };
+};
 
 export const signup = (email, password) => {
   return async (dispatch) => {
@@ -17,16 +26,32 @@ export const signup = (email, password) => {
           }),
         }
       );
-
       if (!res.ok) {
-        throw new Error("Oops, something is wrong with login");
+        const errorResData = await res.json();
+        const errorId = errorResData.error.message;
+        let message = "Something went wrong!";
+        if (errorId === "EMAIL_EXISTS") {
+          message = "This email exists already!";
+        } else if (errorId === "INVALID_PASSWORD") {
+          message = "This password is not valid!";
+        }
+
+        throw new Error(message);
       }
 
       const resData = await res.json();
 
-      console.log("resData ", resData);
+      // dispatch({
+      //   type: SIGNUP,
+      //   token: resData.idToken,
+      //   userId: resData.localId,
+      // });
 
-      dispatch({ type: SIGNUP });
+      dispatch(authenticate(resData.localId, resData.idToken));
+      const expirationDate = new Date(
+        new Date().getTime() + parseInt(resData.expiresIn) * 1000
+      );
+      saveDataToStorage(resData.idToken, resData.localId, expirationDate);
     } catch (err) {
       // send to custom analytics server
       throw err;
@@ -53,14 +78,30 @@ export const login = (email, password) => {
       );
 
       if (!res.ok) {
-        throw new Error("Oops, something is wrong with login");
+        const errorResData = await res.json();
+        const errorId = errorResData.error.message;
+        let message = "Something went wrong!";
+        if (errorId === "EMAIL_NOT_FOUND") {
+          message = "This email could not be found!";
+        } else if (errorId === "INVALID_PASSWORD") {
+          message = "This password is not valid!";
+        }
+
+        throw new Error(message);
       }
 
       const resData = await res.json();
 
-      console.log("resData ", resData);
-
-      dispatch({ type: LOGIN });
+      // dispatch({
+      //   type: LOGIN,
+      //   token: resData.idToken,
+      //   userId: resData.localId,
+      // });
+      dispatch(authenticate(resData.localId, resData.idToken));
+      const expirationDate = new Date(
+        new Date().getTime() + parseInt(resData.expiresIn) * 1000
+      );
+      saveDataToStorage(resData.idToken, resData.localId, expirationDate);
     } catch (err) {
       // send to custom analytics server
       throw err;
@@ -68,3 +109,13 @@ export const login = (email, password) => {
   };
 };
 
+const saveDataToStorage = (token, userId, expirationDate) => {
+  AsyncStorage.setItem(
+    "userData",
+    JSON.stringify({
+      token: token,
+      userId: userId,
+      expiryDate: expirationDate.toISOString(),
+    })
+  );
+};

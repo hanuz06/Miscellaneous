@@ -1,11 +1,13 @@
 import { ADD_ORDER, FETCH_ORDERS } from "../../types";
-import Order from '../../models/order'
+import Order from "../../models/order";
 
 export const fetchOrders = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    // getState() of redux-thunk outputs the whole redux state
+    const userId = getState().auth.userId;
     try {
       const res = await fetch(
-        "https://react-native-shop-app-9b2b1.firebaseio.com/orders/u1.json"
+        `https://react-native-shop-app-9b2b1.firebaseio.com/orders/${userId}.json`
       );
 
       if (!res.ok) {
@@ -20,7 +22,7 @@ export const fetchOrders = () => {
         fetchedOrders.push(
           new Order(
             key,
-            resData[key].cartItems,            
+            resData[key].cartItems,
             resData[key].totalAmount,
             new Date(resData[key].date)
           )
@@ -36,10 +38,13 @@ export const fetchOrders = () => {
 
 export const addOrder = (cartItems, totalAmount) => {
   // allow execute any async code thanks to redux-thunk
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    // getState() of redux-thunk outputs the whole redux state
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
     const date = new Date();
     const res = await fetch(
-      "https://react-native-shop-app-9b2b1.firebaseio.com/orders/u1.json",
+      `https://react-native-shop-app-9b2b1.firebaseio.com/orders/${userId}.json?auth=${token}`,
       {
         method: "POST",
         headers: {

@@ -9,12 +9,14 @@ import ReduxThunk from "redux-thunk"; // allow to make async request to Firebase
 import productsReducer from "./store/reducers/productsReducer";
 import cartReducer from "./store/reducers/cartReducer";
 import orderReducer from "./store/reducers/orderReducer";
+import authReducer from "./store/reducers/authReducer";
 import ShopNavigator from "./navigation/ShopNavigator";
 
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
-  orders: orderReducer,
+  orders: orderReducer, 
+  auth: authReducer,
 });
 
 const store = createStore(

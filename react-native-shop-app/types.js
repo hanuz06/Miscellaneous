@@ -11,3 +11,4 @@ export const INPUT_CHANGE = "INPUT_CHANGE";
 export const INPUT_FOCUS = "INPUT_FOCUS";
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
+export const AUTHENTICATE = "AUTHENTICATE";

@@ -1,15 +1,27 @@
-import { SIGNUP, LOGIN } from "../../types";
+import { SIGNUP, LOGIN, AUTHENTICATE } from "../../types";
 
 const initialState = {
-  token: "",
+  token: null,
+  userId: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SIGNUP:
+    case AUTHENTICATE:
       return {
-        orders: action.token,
+        token: action.token,
+        userId: action.userId,
       };
+    // case LOGIN:
+    //   return {
+    //     token: action.token,
+    //     userId: action.userId,
+    //   };
+    // case SIGNUP:
+    //   return {
+    //     token: action.token,
+    //     userId: action.userId, 
+    //   };
     default:
       return state;
   }

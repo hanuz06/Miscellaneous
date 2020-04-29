@@ -56,6 +56,14 @@ const OrdersScreen = () => {
     );
   }
 
+  if (orders.length === 0) {
+    return (
+      <View style={styles.centered}>
+        <Text>No order found!</Text>
+      </View>
+    );
+  }
+
   return (
     <FlatList
       data={orders}
