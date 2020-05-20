@@ -27,7 +27,7 @@ const rect2: Rect = {
 rect2.color = 'black'
 // rect2.id='23232'
 
-const rect3 = {} as Rect
+const rect3 = {} as Rect // JSX only accepts this form
 const rect4 = <Rect>{}
 
 // =================
