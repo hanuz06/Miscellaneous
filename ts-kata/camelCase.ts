@@ -2,9 +2,7 @@ const pascalCase = (str: string): string =>
   str
     .trim()
     .split(" ")
-    .map(word =>(
-      word ? word[0].toUpperCase() + word.slice(1) : "")
-    )
+    .map((word) => (word ? word[0].toUpperCase() + word.slice(1) : ""))
     .join("");
 
 pascalCase("test case"); //"TestCase"
