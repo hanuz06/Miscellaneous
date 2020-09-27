@@ -1,0 +1,57 @@
+How would you go about simplifying a complex issue in order to explain it to a client or colleague?
+
+Which statements about the render method of a React.Component are true?
+
+
+It can return a single element/component, as well as sibling DOM elements such as <p>foo</p><p>bar</p>.
+
+
+It should be a pure function of props/state, although other side effects (such as calling new Date() or Math.random()) don't necessarily break the application rendering.
+
+
+Modifying the state within render always leads to infinite render loops.
+
+
+Modifying the state within render doesn't necessarily lead to infinite render loops depending on the implementation.
+
+=================================
+
+Write a higher-order React component that will add 1 to each numeric property passed to the component.
+
+For example, if there is a component defined as
+
+const Add = ({a, b}) => <span>{a} + {b} = {a+b}</span>;
+If we then wrap the component in the HOC and render it
+
+const WrappedAdd = wrap(Add);
+
+<WrappedAdd a={1} b={2} />
+It will render "2 + 3 = 5".
+
+You can use any lodash (or similar) functions if you need to.
+
+-------------
+
+// this is component
+const newComponent = ({num}) => num;
+
+// this is component
+const WithNumber = Component => {
+
+	const intermediateComponent = ({number, ...props})=>{
+	 	return <Component {...props} num={number+1}/>
+	}
+	return intermediateComponent;
+}
+
+const SpecificComponent = WithNumber(newComponent);
+
+<SpecificComponent number={1} />
+
+====================================
+
+
+
+
+
+

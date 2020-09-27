@@ -108,6 +108,9 @@ docker run -d --name db -e POSTGRES_PASSWORD=mysecretpassword postgres : "First 
 docker run -d --name wordpress --link db:db -p 8085:8080 wordpress : "Next let's create a simple wordpress container called wordpress, image: wordpress, link it to the container db and expose it on host port 8085"
 
 ===============================================================
+version: “2”
+
+services:
 
 db:
   image: postgres
@@ -197,3 +200,5 @@ Issuing Commands
 The command KEYS * will output the contents stored currently in the source redis container.
 
 ===============================================================
+ docker network ls
+ docker network inspect bridge
